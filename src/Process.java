@@ -16,9 +16,9 @@ public class Process {
 
 
     public void processing(){
-        System.out.println("Введите выражение которое хотите решить ");
 
         Scanner in = new Scanner(System.in);
+        System.out.println("Введите выражение которое хотите решить или наберите 'exit' для выхода из программы");
 
         String inExpression ;
 
