@@ -1,7 +1,6 @@
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -16,72 +15,58 @@ public class Process {
      boolean isArabic ;
 
 
-
-
-    public String getFirstExprElement() {
-        return firstExprElement;
-    }
-
-    public void setFirstExprElement(String firstExprElement) {
-        this.firstExprElement = firstExprElement;
-    }
-
-    public void setFirstNumber(int firstNumber) {
-        this.firstNumber = firstNumber;
-    }
-
-    public void setSecondNumber(int secondNumber) {
-        this.secondNumber = secondNumber;
-    }
-
-
-
     public void processing(){
-
+        System.out.println("Введите выражение которое хотите решить ");
 
         Scanner in = new Scanner(System.in);
-        String inExpression = in.nextLine();
-        System.out.println(inExpression.toUpperCase());
 
+        String inExpression ;
+
+        while(in.hasNextLine()) {
+
+            try {
+                inExpression = in.nextLine();
+                if (inExpression.equals("exit")) break;
+
+                System.out.println(inExpression.toUpperCase());
+
+                String[] expressionToShow = inExpression.split("[+*/-]");
+                String[] expressionToOperator = inExpression.split("[^+*/-]");
+
+                firstExprElement = expressionToShow[0];
+                secondExprElement = expressionToShow[1];
+                operator = expressionToOperator[(expressionToOperator.length) - 1];
+
+
+                if (firstExprElement.matches(".*\\d+.*") && secondExprElement.matches(".*\\d+.*")) {
+
+                    isArabic = true;
+                    firstNumber = Integer.parseInt(firstExprElement);
+                    secondNumber = Integer.parseInt(secondExprElement);
+
+
+                } else {
+
+                    firstNumber = RomanNumerals.romanToArabic(firstExprElement);
+                    secondNumber = RomanNumerals.romanToArabic(secondExprElement);
+
+                }
+                solveExpression();
+
+            } catch (Exception exception) {
+                System.out.println(exception);
+
+                break;
+            }
+
+        }
         in.close();
-
-        String[] expressionToShow = inExpression.split("[+*/-]");
-        String[] expressionToOperator = inExpression.split("[^+*/-]");
-
-
-        System.out.println("expressionTo = " + Arrays.toString(expressionToOperator));
-
-        System.out.println("expressionToArr = " + Arrays.toString(expressionToShow));
-         firstExprElement = expressionToShow[0];
-         secondExprElement = expressionToShow[1];
-         operator =  expressionToOperator[(expressionToOperator.length)-1];
-
-
-
-        if (firstExprElement.matches(".*\\d+.*") && secondExprElement.matches(".*\\d+.*")) {
-            isArabic = true;
-
-
-        firstNumber = Integer.parseInt(firstExprElement);
-        secondNumber = Integer.parseInt(secondExprElement);
-
-
-     }
-        else {
-        firstNumber = RomanNumerals.romanToArabic(firstExprElement);
-        secondNumber = RomanNumerals.romanToArabic(secondExprElement);
-
-    }
-        solveExpression();
-
-
-
     }
 
     public void solveExpression(){
 
         if ((firstNumber  <0 || firstNumber >10) || (secondNumber <0 || secondNumber > 10)){
-            throw new IllegalArgumentException(" out of range");
+            throw new IllegalArgumentException(" Калькулятор принимает на вход числа от 1 до 10 включительно");
         }
         expressionToSolve = (firstNumber + operator + secondNumber);
         ScriptEngineManager mgr = new ScriptEngineManager();
@@ -99,12 +84,8 @@ public class Process {
 
         }
         else {
-            System.out.println( RomanNumerals.arabicToRoman(result));
-
+            System.out.println(RomanNumerals.arabicToRoman(result));
 
         }
-
     }
-
-
 }

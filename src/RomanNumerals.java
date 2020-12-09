@@ -7,15 +7,11 @@ public enum RomanNumerals {
     I(1), IV(4), V(5), IX(9), X(10),
     XL(40), L(50), XC(90), C(100);
 
-
-
-        private String str;
         private int value;
 
             RomanNumerals(int value) {
                 this.value = value;
             }
-
 
             public int getValue() {
                 return value;
@@ -26,7 +22,6 @@ public enum RomanNumerals {
                         .sorted(Comparator.comparing((RomanNumerals e) -> e.value).reversed())
                         .collect(Collectors.toList());
             }
-
 
     public static String arabicToRoman(int number) {
 
@@ -69,41 +64,11 @@ public enum RomanNumerals {
         }
 
         if (romanNumeral.length() > 0) {
-            throw new IllegalArgumentException( " обе цифры должны быть арабскими или римскими цифрами одновременно");
+            throw new IllegalArgumentException( "Оба числа должны быть арабскими или римскими цифрами одновременно");
         }
 
         return result;
     }
-
-/*
-        public static int romanToArabic(String str){
-            RomanNumerals romanNumerals;
-
-            romanNumerals = RomanNumerals.valueOf(str);
-            switch (romanNumerals) {
-                case I -> romanNumerals.setA(1);
-               // case II -> romanNumerals.setA(2);
-                //case III -> romanNumerals.setA(3);
-                case IV -> romanNumerals.setA(4);
-                case V -> romanNumerals.setA(5);
-                //case VI -> a = 6;
-               //// case VII -> a = 7;
-                //case VIII -> a = 8;
-                case IX -> romanNumerals.setA(9);
-                case X -> romanNumerals.setA(10);
-
-
-            }
-            System.out.println("a = " + romanNumerals.getA());
-
-            return a;
-        }
-
- */
-
-
-
-
 }
 
 
