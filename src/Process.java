@@ -74,7 +74,7 @@ public class Process {
 
         try {
 
-            result = (int)engine.eval(expressionToSolve);
+            result = ((Double) engine.eval(expressionToSolve)).intValue();
         } catch (ScriptException e) {
             e.printStackTrace();
         }
