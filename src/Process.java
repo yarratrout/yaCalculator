@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 
 public class Process {
-     int firstNumber;
-     int secondNumber;
+     double firstNumber;
+     double secondNumber;
      int result;
      String firstExprElement;
      String secondExprElement;
@@ -37,12 +37,16 @@ public class Process {
                 secondExprElement = expressionToShow[1];
                 operator = expressionToOperator[(expressionToOperator.length) - 1];
 
+                if (operator.matches("/") && secondExprElement.matches("0")){
+                    throw new ArithmeticException(" Деление на 0") ;
+                }
 
                 if (firstExprElement.matches(".*\\d+.*") && secondExprElement.matches(".*\\d+.*")) {
 
+
                     isArabic = true;
-                    firstNumber = Integer.parseInt(firstExprElement);
-                    secondNumber = Integer.parseInt(secondExprElement);
+                    firstNumber = Double.parseDouble(firstExprElement);
+                    secondNumber = Double.parseDouble(secondExprElement);
 
 
                 } else {
