@@ -41,7 +41,6 @@ public class Process {
                     throw new ArithmeticException(" Деление на 0") ;
                 }
 
-
                 if (firstExprElement.matches(".*\\d+.*") && secondExprElement.matches(".*\\d+.*")) {
 
 
@@ -101,9 +100,5 @@ public class Process {
             System.out.println(result);
         }
 
-
-
-
-        }
-
+    }
 }
