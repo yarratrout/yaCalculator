@@ -41,6 +41,7 @@ public class Process {
                     throw new ArithmeticException(" Деление на 0") ;
                 }
 
+
                 if (firstExprElement.matches(".*\\d+.*") && secondExprElement.matches(".*\\d+.*")) {
 
 
@@ -50,7 +51,7 @@ public class Process {
 
 
                 } else {
-
+                    isArabic = false;
                     firstNumber = RomanNumerals.romanToArabic(firstExprElement);
                     secondNumber = RomanNumerals.romanToArabic(secondExprElement);
 
@@ -69,9 +70,11 @@ public class Process {
 
     public void solveExpression(){
 
+
         if ((firstNumber  <0 || firstNumber >10) || (secondNumber <0 || secondNumber > 10)){
             throw new IllegalArgumentException(" Калькулятор принимает на вход числа от 1 до 10 включительно");
         }
+
         expressionToSolve = (firstNumber + operator + secondNumber);
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
@@ -79,17 +82,28 @@ public class Process {
         try {
 
             result = ((Double) engine.eval(expressionToSolve)).intValue();
+
         } catch (ScriptException e) {
             e.printStackTrace();
         }
 
-        if (isArabic){
-            System.out.println(result);
+        if (isArabic == false ){
 
-        }
-        else {
+            if ((operator.matches("[-]") && secondNumber >= firstNumber) || (operator.matches("[-/]") && secondNumber > firstNumber)){
+
+                throw new IllegalArgumentException(" Римское число не может быть отрицательным или '0'");
+            }
+
             System.out.println(RomanNumerals.arabicToRoman(result));
+        }
+
+        else {
+            System.out.println(result);
+        }
+
+
+
 
         }
-    }
+
 }
